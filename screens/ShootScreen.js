@@ -14,11 +14,14 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import ImageList from "./ImageList";
 import NpList from "./NpList";
 import UserContext from "../auth/UserContext";
+import axios from "axios";
 
 export default function ShootScreen({ navigation }) {
   const { userData } = useContext(UserContext)
   const [image, setImage] = useState(null);
+  const [name, setName] = useState(null);
   const [camera, setCamera] = useState(null);
+  console.log(userData);
 
   const takeImageHandler = async () => {
     const cameraphoto = await ImagePicker.launchCameraAsync(
@@ -32,6 +35,25 @@ export default function ShootScreen({ navigation }) {
       setImage(cameraphoto.assets[0].uri);
     }
   };
+
+  useEffect(() => {
+    const fetchUserdata = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}/auths/`, {
+          headers: {
+            'Authorization': `token ${userData?.token}`,  // Pass the token here
+            'Content-Type': 'application/json',
+          }
+        });
+        setName(response.data);
+        console.log(response.data);
+      } catch (err) {
+        alert(err.message);  // Catch and display error if any
+      }
+    };
+
+    fetchUserdata();
+  }, []);
 
 
   const pickImage = async () => {
@@ -75,7 +97,7 @@ export default function ShootScreen({ navigation }) {
                   fontFamily: 'DMSans_500Medium',
                   fontSize: 16,
                   color: '#ffffff',
-                }}>  {userData?.name}  Mr Ali </Text>
+                }}>  { } Mr Ali </Text>
 
               </View>
 

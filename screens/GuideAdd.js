@@ -22,6 +22,7 @@ export default function GuideAdd({ navigation, route }) {
   const { userData } = useContext(UserContext);
   const bgswitch = route.params;
   const image = route.params;
+  const name = route.params;
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
@@ -162,6 +163,11 @@ export default function GuideAdd({ navigation, route }) {
                     color={"#ffffff"}
                   />
                 </TouchableOpacity>
+                <Text style={{
+              color: "#ffffff",
+              fontFamily: "DMSans_500Medium",
+              fontSize: 18,
+            }}> {name} </Text>
                 {image && (
                   <TouchableOpacity
                     onPress={() => navigation.navigate("BackgroundList")}
