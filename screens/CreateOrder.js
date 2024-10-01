@@ -275,8 +275,8 @@ export default function CreateOrder({ navigation }) {
           <Button
             label="Next"
             onPress={() => setModalVisible(!modalVisible)}
-            // onPress={handlePresentModalPress}
-            // onPress={() => sendOrderData(true)}
+          // onPress={handlePresentModalPress}
+          // onPress={() => sendOrderData(true)}
           />
         </View>
         <Modal

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
+  Modal,
   ImageBackground
 } from "react-native";
 import React, { useState } from "react";
@@ -21,7 +22,7 @@ export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
   const [company_name, setCompany_name] = useState('');
   const [password, setPassword] = useState('');
-
+  const [modalVisible, setModalVisible] = useState(false);
   // State variable to track password visibility
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,39 +39,41 @@ export default function SignupScreen({ navigation }) {
 
 
   const handleSignUp = () => {
-    if (!name && !validateEmail(email) && !password && !company_name) {
-      alert('All filled is required')
-      return
-    }
-    let data = JSON.stringify({
-      "email": email,
-      "name": name,
-      "company_name": company_name,
-      "password": password
-    });
+    // if (!name && !validateEmail(email) && !password && !company_name) {
+    //   alert('All filled is required')
+    //   return
+    // }
+    // let data = JSON.stringify({
+    //   "email": email,
+    //   "name": name,
+    //   "company_name": company_name,
+    //   "password": password
+    // });
 
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: `${BaseUrl}/auths/register/`,
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': 'csrftoken=CH8HzIULQdGpZESH58Pav5ulF8BT6q4s; sessionid=4v67h0saqwxa3571v4o0stfz8v1bl7o3'
-      },
-      data: data
-    };
+    // let config = {
+    //   method: 'post',
+    //   maxBodyLength: Infinity,
+    //   url: `${BaseUrl}/auths/register/`,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     'Cookie': 'csrftoken=CH8HzIULQdGpZESH58Pav5ulF8BT6q4s; sessionid=4v67h0saqwxa3571v4o0stfz8v1bl7o3'
+    //   },
+    //   data: data
+    // };
 
-    axios.request(config)
-      .then((result) => {
-        alert(result.data.message)
-        alert("Please Confirm the verification code")
+    // axios.request(config)
+    //   .then((result) => {
+    //     alert(result.data.message)
+    //     alert("Please Confirm the verification code")
 
-        //  navigation.navigate("Login")
-      })
-      .catch((error) => {
-        console.log(error)
-        alert("Fill Correct Field");
-      });
+    //     //  navigation.navigate("Login")
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //     alert("Fill Correct Field");
+    //   });
+
+    setModalVisible(!modalVisible)
   }
 
 
@@ -192,6 +195,67 @@ export default function SignupScreen({ navigation }) {
 
 
         </TouchableOpacity>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              {/* setModalVisible(!modalVisible) */}
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontFamily: "DMSans_500Medium",
+                  padding: 5,
+                  color: "#ffffff",
+                }}
+              >
+                {" "}
+                Enter The verification code from email
+              </Text>
+              <TextInput
+                placeholder="Enter here..."
+                autoCapitalize="none"
+                returnKeyType="next"
+                returnKeyLabel="next"
+                inputHieght={54}
+                paddingTop={12}
+
+              />
+
+              <TouchableOpacity
+                style={{
+                  borderWidth: 0.5,
+                  borderColor: "gray",
+                  margin: 10,
+                  borderRadius: 10,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: 54,
+                }}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 14,
+                    fontFamily: "DMSans_400Regular",
+                  }}
+                >
+                  {" "}
+                  Varify Code{" "}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
 
       </ImageBackground>
     </ScrollView>
@@ -208,6 +272,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingTop: 40,
     paddingLeft: 10
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
   welcomeBar: {
     justifyContent: "center",
@@ -260,5 +329,41 @@ const styles = StyleSheet.create({
   CardText: {
     color: "#ffffff",
     fontFamily: 'DMSans_500Medium', fontSize: 18
+  },
+  modalView: {
+    flex: 0.4,
+    width: "100%",
+    backgroundColor: "#181C27",
+    borderTopRightRadius: 30,
+    borderTopLeftRadius: 30,
+    paddingTop: 20,
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    borderTopColor: "red",
+    borderWidth: 1,
+    borderTopColor: "#FF4A22",
+    borderRightColor: "#FF4A22",
+    borderLeftColor: "#FF4A22",
+  },
+  modalTop: {
+    flex: 0.8,
+    width: "100%",
+    backgroundColor: "#181C27",
+    padding: 2,
+    alignItems: "center",
+    justifyContent: "flex-start",
+    borderTopColor: "red",
+  },
+  modalBottom: {},
+
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });
