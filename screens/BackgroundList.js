@@ -138,7 +138,7 @@ export default function BackgroundList({ navigation, route }) {
         renderItem={({ item }) => (
 
           <TouchableOpacity
-            onPress={() => navigation.navigate("GuideAdd", item.name)}
+            onPress={() => navigation.navigate("GuideAdd", item.image)}
             style={{
               backgroundColor: 'transparent', borderRadius: 35, margin: 5
             }}

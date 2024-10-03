@@ -58,7 +58,7 @@ export default function GuideAdd({ navigation, route }) {
   console.log(floorSwitch);
 
   const PostInstructions = () => {
-    if(!InstructionName){
+    if (!InstructionName) {
       alert("Enter Instruction name")
       return
     }
@@ -163,16 +163,16 @@ export default function GuideAdd({ navigation, route }) {
                     color={"#ffffff"}
                   />
                 </TouchableOpacity>
-                <Text style={{
+                {/* <Text style={{
               color: "#ffffff",
               fontFamily: "DMSans_500Medium",
               fontSize: 18,
-            }}> {name} </Text>
+            }}> {name} </Text> */}
                 {image && (
                   <TouchableOpacity
                     onPress={() => navigation.navigate("BackgroundList")}
                   >
-                    <Image source={image} style={styles.logo1} />
+                    <Image source={{ uri: image }} style={styles.logo1} />
                   </TouchableOpacity>
                 )}
               </View>
